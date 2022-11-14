@@ -22,11 +22,17 @@ stream = tweepy.StreamingClient(bearer_token)
 find_driverless = tweepy.StreamRule(value = "driverless -is:retweet")
 find_self_driving = tweepy.StreamRule(value = "self driving -is:retweet")
 
-stream.add_rules(add=[find_driverless, find_self_driving])
+#test rule
+find_elon = tweepy.StreamRule(value = "elon -is:retweet")
+
+
+stream.add_rules(add=[find_driverless, find_self_driving, find_elon])
 
 print(stream.get_rules())
 
 #access stream
+stream.disconnect()
+print("opening stream")
 tweets = stream.filter()
 
 #output streamed tweets to file for use
@@ -39,5 +45,5 @@ with open("streamed_tweets.json", "a") as outfile:
     outfile.write(json_object)
 
 #close stream
-time.sleep(5000)
 stream.disconnect()
+print("closing stream")
