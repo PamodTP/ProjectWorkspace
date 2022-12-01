@@ -1,6 +1,7 @@
 import nltk
 import json
 import string
+import re
 from nltk.corpus import stopwords
 from nltk.corpus import twitter_samples
 from nltk.tokenize import TweetTokenizer
@@ -39,6 +40,9 @@ tweets_file = open("tweets.json")
 tweets = json.load(tweets_file)
 tweets_file.close()
 
+pattern = re.compile('https:(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')
+#pattern = re.compile('maga')
+
 
 def process_tweet(text):
     """
@@ -47,8 +51,15 @@ def process_tweet(text):
     Input: Single tweet string
     Output: Processed tweet string
     """
+    # all lowercase
     text = text.lower()
+    # remove hyperlinks
+    text = pattern.sub('', text)
+    # remove newline marker
+    text = text.replace("\n", "")
+    # remove punctuation
     text = "".join([char for char in text if char not in string.punctuation])
+    
     return text
 
 
@@ -63,6 +74,7 @@ for tweet in tweets:
 #tweet_tokens = tokenizer.tokenize(tweets)
 
 print("x")
+
 
 
 pass
