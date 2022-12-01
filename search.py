@@ -33,11 +33,25 @@ while tweets.meta.get("next_token"):
     if counter==500:
         break
 
+    
+json_data = []
+for page in total_message_list:
+    for message in page:
+        json_data.append(message.text)
+
+with open('tweets.json', 'w') as json_file:
+    json.dump(json_data, json_file) 
+
  
 # Writing to data.txt
-with open("data.txt", "a", encoding='utf-8') as outfile:
-    for page in total_message_list:
-        for message in page:
-            outfile.write(message.text)
+# with open("data.txt", "a", encoding='utf-8') as outfile:
+#     for page in total_message_list:
+#         for message in page:
+#             outfile.write(message.text)
+#             outfile.write('!NEWTWEET-HERE!')
 
+
+    
+
+pass
 # print(total_message_list)
