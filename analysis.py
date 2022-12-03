@@ -95,8 +95,15 @@ for tweet in tweets:
 sentiment_pipeline = pipeline("sentiment-analysis")
 
 data = ["I love you", "I hate you", "I like cars", "I dislike cars", "cars make me so sad man"]
-output = sentiment_pipeline(data)
-print(output)
+model_output = sentiment_pipeline(tweets)
+#print(output)
+
+model_results = {tweets[i]: model_output[i] for i in range(len(tweets))}
+
+for entry in model_results:
+    print(entry)
+    print(model_results.get(entry))
+    print('\n')
 
 #continue following https://huggingface.co/blog/sentiment-analysis-python#3-building-your-own-sentiment-analysis-model
 x = '6'
