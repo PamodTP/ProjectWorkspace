@@ -3,11 +3,18 @@ import json
 import string
 import re
 from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
 from nltk.corpus import twitter_samples
-from nltk.tokenize import TweetTokenizer
+from nltk.tokenize import TweetTokenizer, RegexpTokenizer
+
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB
+
+from transformers import pipeline
 
 stop_words = stopwords.words('english')
 punctuation = string.punctuation
+
 
 
 #example following https://www.digitalocean.com/community/tutorials/how-to-perform-sentiment-analysis-in-python-3-using-the-natural-language-toolkit-nltk#step-6-preparing-data-for-the-model
@@ -16,6 +23,7 @@ negative_tweets = twitter_samples.strings('negative_tweets.json')
 text_sample = twitter_samples.strings('tweets.20150430-223406.json')
 
 tokenizer = TweetTokenizer(strip_handles=True)
+lemmatizer = WordNetLemmatizer()
 
 
 #real
@@ -59,7 +67,12 @@ def process_tweet(text):
     text = text.replace("\n", "")
     # remove punctuation
     text = "".join([char for char in text if char not in string.punctuation])
+    # tokenize
+    text = tokenizer.tokenize(text)
+    # remove stop words
+    text = [word for word in text if word not in stop_words]
     
+     
     return text
 
 
@@ -73,8 +86,20 @@ for tweet in tweets:
 
 #tweet_tokens = tokenizer.tokenize(tweets)
 
-print("x")
+# cv = CountVectorizer()
+# train_data = cv.fit_transform(tweets)
+# data_shape = train_data.shape
 
+# MNB = MultinomialNB()
+
+sentiment_pipeline = pipeline("sentiment-analysis")
+
+data = ["I love you", "I hate you", "I like cars", "I dislike cars", "cars make me so sad man"]
+output = sentiment_pipeline(data)
+print(output)
+
+#continue following https://huggingface.co/blog/sentiment-analysis-python#3-building-your-own-sentiment-analysis-model
+x = '6'
 
 
 pass
