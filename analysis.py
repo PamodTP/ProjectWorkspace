@@ -92,13 +92,20 @@ for tweet in tweets:
 
 # MNB = MultinomialNB()
 
-sentiment_pipeline = pipeline("sentiment-analysis")
+model_path = f"cardiffnlp/twitter-roberta-base-sentiment-latest"
 
-data = ["I love you", "I hate you", "I like cars", "I dislike cars", "cars make me so sad man"]
-model_output = sentiment_pipeline(tweets)
+sentiment_pipeline = pipeline("sentiment-analysis", model=model_path, tokenizer=model_path)
+
+# Basic Testing Data
+basic_data = ["I love you", "I hate you", "I like cars", "I dislike cars", "cars make me so sad man"]
+model_output = sentiment_pipeline(basic_data)
+model_results = {basic_data[i]: model_output[i] for i in range(len(basic_data))}
+
+# Real Twitter Data
+#model_output = sentiment_pipeline(tweets)
 #print(output)
 
-model_results = {tweets[i]: model_output[i] for i in range(len(tweets))}
+#model_results = {tweets[i]: model_output[i] for i in range(len(tweets))}
 
 for entry in model_results:
     print(entry)
