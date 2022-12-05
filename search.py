@@ -39,7 +39,7 @@ for page in total_message_list:
     for message in page:
         json_data.append(message.text)
 
-with open('tweets.json', 'w') as json_file:
+with open('tweets.json', 'a') as json_file:
     json.dump(json_data, json_file) 
 
  
