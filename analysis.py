@@ -7,9 +7,6 @@ from nltk.stem import WordNetLemmatizer
 from nltk.corpus import twitter_samples
 from nltk.tokenize import TweetTokenizer, RegexpTokenizer
 
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.naive_bayes import MultinomialNB
-
 from transformers import pipeline
 
 stop_words = stopwords.words('english')
