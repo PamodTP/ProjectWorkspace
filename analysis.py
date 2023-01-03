@@ -9,15 +9,19 @@ from nltk.tokenize import TweetTokenizer, RegexpTokenizer
 
 from transformers import pipeline
 
+nltk.download('twitter_samples')
+
+
 stop_words = stopwords.words('english')
+
 punctuation = string.punctuation
 
 
 
 #example following https://www.digitalocean.com/community/tutorials/how-to-perform-sentiment-analysis-in-python-3-using-the-natural-language-toolkit-nltk#step-6-preparing-data-for-the-model
-positive_tweets = twitter_samples.strings('positive_tweets.json')
-negative_tweets = twitter_samples.strings('negative_tweets.json')
-text_sample = twitter_samples.strings('tweets.20150430-223406.json')
+# positive_tweets = twitter_samples.strings('positive_tweets.json')
+# negative_tweets = twitter_samples.strings('negative_tweets.json')
+# text_sample = twitter_samples.strings('tweets.20150430-223406.json')
 
 tokenizer = TweetTokenizer(strip_handles=True)
 lemmatizer = WordNetLemmatizer()
